@@ -3,10 +3,10 @@ from tile import Tile
 from pawn import Pawn
 import pygame
 
-DEBUG = 3
+DEBUG = 0
 
 class Board:
-    def __init__(self, board:list[int] = None, turn:Color = Color.BLACK, board_size:int = 600):
+    def __init__(self, board:list[int] = None, turn:Color = Color.RED, board_size:int = 600):
         if board is None:
             self.board = [
                 [Color.BLACK, Color.BLACK, Color.BLACK],
@@ -54,13 +54,20 @@ class Board:
         clicked_tile = self.get_tile_from_pos(x * (self.board_size // 3), y * (self.board_size // 3))
 
         if DEBUG == 2: print(f'clicked tile: {clicked_tile}')
+        if DEBUG >= 2: print(f'selected piece: {self.selected_piece}')
+        if DEBUG >= 2: print(f'clicked tile piece: {clicked_tile.piece}')
+        if clicked_tile.piece is not None:
+            temp = Color.BLACK if clicked_tile.piece.color == Color.BLACK else Color.RED
+        else:
+            temp = 'none'
+        if DEBUG >= 2: print(f'clicked tile piece color: {temp}')
+        if DEBUG >= 2: print(f'turn: {self.turn}')
 
-        if self.selected_piece is None and clicked_tile.piece is not None and clicked_tile.piece.color == self.turn:
+        if self.selected_piece is None and clicked_tile.piece is not None and temp == self.turn:
             self.selected_piece = clicked_tile.piece
 
         elif self.selected_piece is not None and self.selected_piece.move(clicked_tile):
             self.turn = Color.BLACK if self.turn == Color.RED else Color.RED
-        if DEBUG == 3: print(f'turn: {self.turn}')
 
         elif clicked_tile.piece is not None and clicked_tile.piece.color == self.turn:
             self.selected_piece = clicked_tile.piece
