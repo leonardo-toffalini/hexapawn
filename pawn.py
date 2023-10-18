@@ -24,6 +24,7 @@ class Pawn(Piece):
         poss_moves = self._possible_moves()
         for move in poss_moves:
             tile_pos = (self.pos[0] + move[0], self.pos[1] + move[1])
+            print(f'tile pos = {tile_pos}')
             if tile_pos[0] > 2 or tile_pos[0] < 0 or tile_pos[1] > 2 or tile_pos[1] < 0:
                 continue
             
@@ -48,7 +49,11 @@ class Pawn(Piece):
 
 
     def move(self, tile: Tile):
-        if tile in self.valid_moves():
+        valid_moves = self.valid_moves()
+        print(f'valid moves: {valid_moves}')
+        # print(f'tile.x = {tile.x}')
+        print(f'direction: {(tile.x//200) - self.pos[0], (tile.y//200) - self.pos[1]}')
+        if ((tile.x//200) - self.pos[0], (tile.y//200) - self.pos[1]) in self.valid_moves():
             prev = tile
             self.pos = (tile.x, tile.y)
             prev.piece = None
