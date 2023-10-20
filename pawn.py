@@ -2,10 +2,12 @@ import pygame
 from piece import Piece, Color
 from tile import Tile
 
+DEBUG = 0
+
 
 class Pawn(Piece):
     def __init__(self, pos: tuple[int, int], color: Color, board):
-        super().__init__(pos, Color, board)
+        super().__init__(pos, color, board)
         img_path = 'images/black-pawn.png' if color == Color.BLACK else 'images/red-pawn.png'
         self.board = board
         self.img = pygame.image.load(img_path)
@@ -24,7 +26,6 @@ class Pawn(Piece):
         poss_moves = self._possible_moves()
         for move in poss_moves:
             tile_pos = (self.pos[0] + move[0], self.pos[1] + move[1])
-            # print(f'tile pos = {tile_pos}')
             if tile_pos[0] > 2 or tile_pos[0] < 0 or tile_pos[1] > 2 or tile_pos[1] < 0:
                 continue
             
@@ -43,31 +44,31 @@ class Pawn(Piece):
                 continue
             
             tile = self.board.get_tile_from_pos(tile_pos[0] * (self.board.board_size // 3), tile_pos[1] * (self.board.board_size // 3))
-            if tile.piece is not None and tile.piece.color == -self.color:
-                takes.append(take)
+            if tile.piece is not None:
+                other_color = Color.BLACK if self.color == Color.RED else Color.RED
+                if tile.piece.color == other_color:
+                    takes.append(take)
         return takes
 
 
     def move(self, tile: Tile):
         valid_moves = self.valid_moves()
-        print(f'valid moves: {valid_moves}')
-        # print(f'tile.x = {tile.x}')
-        # print(f'direction: {(tile.x//200) - self.pos[0], (tile.y//200) - self.pos[1]}')
-        if ((tile.x//200) - self.pos[0], (tile.y//200) - self.pos[1]) in self.valid_moves():
+        valid_takes = self.valid_takes()
+        move = ((tile.x//200) - self.pos[0], (tile.y//200) - self.pos[1])
+
+        if DEBUG >= 1: print(f'valid moves: {valid_moves}')
+        if DEBUG >= 1: print(f'valid takes: {valid_takes}')
+        if move in self.valid_moves():
             prev = self.board.get_tile_from_pos(self.pos[0] * (self.board.board_size // 3), self.pos[1] * (self.board.board_size // 3))
-            print(prev.x, prev.y)
-            print(f'prev piece: {prev.piece}')
-            # print(f'prev = {prev.x // 200, tile.y // 200}')
             self.pos = (tile.x // 200, tile.y // 200)
             prev.piece = None
-            # print(f'self: {self}')
             tile.piece = self
             self.board.selected_piece = None
             return True
 
-        if tile in self.valid_takes():
-            prev = tile
-            self.pos = (tile.x ,tile.y)
+        if move in valid_takes:
+            prev = self.board.get_tile_from_pos(self.pos[0] * (self.board.board_size // 3), self.pos[1] * (self.board.board_size // 3))
+            self.pos = (tile.x // 200, tile.y // 200)
             prev.piece = None
             tile.piece = self
             self.board.selected_piece = None

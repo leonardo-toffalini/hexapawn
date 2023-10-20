@@ -206,7 +206,7 @@ def main():
         # print(f'it took {time()-t2} seconds')
         # print(board._hash_pos())
         t3 = time()
-        # print(board.get_best_move(5, board.turn, ab=True))
+        print(board.get_best_move(5, board.turn, ab=True))
         print(time() - t3)
 
         board.displayBoard()

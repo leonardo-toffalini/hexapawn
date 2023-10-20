@@ -1,9 +1,7 @@
 from piece import Piece, Color
 from tile import Tile
-from pawn import Pawn
+from pawn import Pawn, DEBUG
 import pygame
-
-DEBUG = 0
 
 class Board:
     def __init__(self, board:list[int] = None, turn:Color = Color.RED, board_size:int = 600):
@@ -52,8 +50,9 @@ class Board:
         x = x // (self.board_size // 3)
         y = y // (self.board_size // 3)
         clicked_tile = self.get_tile_from_pos(x * (self.board_size // 3), y * (self.board_size // 3))
+        if DEBUG >= 2: print(f'clicked tile pos: {clicked_tile}')
 
-        if DEBUG == 2: print(f'clicked tile: {clicked_tile}')
+        if DEBUG >= 2: print(f'clicked tile: {clicked_tile}')
         if DEBUG >= 2: print(f'selected piece: {self.selected_piece}')
         if DEBUG >= 2: print(f'clicked tile piece: {clicked_tile.piece}')
         if clicked_tile.piece is not None:
