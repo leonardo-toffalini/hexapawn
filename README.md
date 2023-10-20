@@ -1,4 +1,4 @@
-**Hexapawn** game implemented with pygame.
+## Hexapawn game implemented with pygame.
 
 To play the game run the main.py file.
 
