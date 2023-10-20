@@ -1,5 +1,7 @@
 **Hexapawn** game implemented with pygame.
 
+To play the game run the main.py file.
+
 Rules of **Hexapawn**:
 - There are two players: *Red* and *Black*.
 - *Red* starts.
