@@ -1,8 +1,8 @@
-*Hexapawn* game implemented with pygame.
+**Hexapawn** game implemented with pygame.
 
-Rules of *Hexapawn*:
-- There are two players: _Red_ and _Black_.
-- _Red_ starts.
+Rules of **Hexapawn**:
+- There are two players: *Red* and *Black*.
+- *Red* starts.
 - Each turn each player may move a piece forward by one tile or can capture an opponents piece diagonally, like a pawn in chess.
 
 A player wins if either:
