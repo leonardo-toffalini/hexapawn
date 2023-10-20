@@ -94,6 +94,7 @@ def main():
                 running = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+               print(f'turn: {my_board.turn}')
                my_board.handle_click(event.pos) 
 
     pygame.quit()
