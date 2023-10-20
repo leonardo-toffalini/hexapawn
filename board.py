@@ -41,7 +41,7 @@ class Board:
 
     def get_tile_from_pos(self, x, y):
         for tile in self.tiles_list:
-            if (tile.x, tile.y) == (x, y):
+            if (tile.x_index, tile.y_index) == (x, y):
                 return tile
 
     
@@ -49,7 +49,7 @@ class Board:
         x, y = pos[0], pos[1]
         x = x // (self.board_size // 3)
         y = y // (self.board_size // 3)
-        clicked_tile = self.get_tile_from_pos(x * (self.board_size // 3), y * (self.board_size // 3))
+        clicked_tile = self.get_tile_from_pos(x, y)
         if DEBUG >= 2: print(f'clicked tile pos: {clicked_tile}')
 
         if DEBUG >= 2: print(f'clicked tile: {clicked_tile}')

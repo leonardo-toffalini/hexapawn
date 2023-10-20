@@ -6,6 +6,9 @@ class Tile:
         self.x = x * self.tile_size
         self.y = y * self.tile_size
 
+        self.x_index = x
+        self.y_index = y
+
         self.color = 'dark' if (x + y) % 2 else 'light'
         self.draw_color = (220, 189, 194) if self.color == 'light' else (92, 75, 75)
         self.highlight_color = (100, 249, 83) if self.color == 'light' else (0, 200, 10)

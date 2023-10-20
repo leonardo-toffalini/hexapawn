@@ -9,7 +9,7 @@ class Game:
         reds, blacks = 0, 0
         for i in range(3):
             for j in range(3):
-                tile = board.get_tile_from_pos(i*200, j*200)
+                tile = board.get_tile_from_pos(i, j)
 
                 if tile.piece is None:
                     continue
@@ -25,7 +25,7 @@ class Game:
         all_moves = []
         for i in range(3):
             for j in range(3):
-                tile = board.get_tile_from_pos(i*200, j*200)
+                tile = board.get_tile_from_pos(i, j)
 
                 if tile.piece is not None and tile.piece.color == board.turn:
                     for move in tile.piece.valid_moves():
@@ -41,8 +41,8 @@ class Game:
 
     def check_last_rank(self, board):
         for i in range(3):
-            first_row_tile = board.get_tile_from_pos(i * 200, 0)
-            last_row_tile = board.get_tile_from_pos(i * 200, 400)
+            first_row_tile = board.get_tile_from_pos(i, 0)
+            last_row_tile = board.get_tile_from_pos(i, 2)
 
             if first_row_tile.piece is not None and first_row_tile.piece.color == Color.RED:
                 return Color.RED

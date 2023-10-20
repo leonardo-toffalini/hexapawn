@@ -29,7 +29,7 @@ class Pawn(Piece):
             if tile_pos[0] > 2 or tile_pos[0] < 0 or tile_pos[1] > 2 or tile_pos[1] < 0:
                 continue
             
-            tile = self.board.get_tile_from_pos(tile_pos[0] * (self.board.board_size // 3), tile_pos[1] * (self.board.board_size // 3))
+            tile = self.board.get_tile_from_pos(tile_pos[0], tile_pos[1])
             if tile.piece is None:
                 moves.append(move)
         return moves
@@ -43,7 +43,7 @@ class Pawn(Piece):
             if tile_pos[0] > 2 or tile_pos[0] < 0 or tile_pos[1] > 2 or tile_pos[1] < 0:
                 continue
             
-            tile = self.board.get_tile_from_pos(tile_pos[0] * (self.board.board_size // 3), tile_pos[1] * (self.board.board_size // 3))
+            tile = self.board.get_tile_from_pos(tile_pos[0], tile_pos[1])
             if tile.piece is not None:
                 other_color = Color.BLACK if self.color == Color.RED else Color.RED
                 if tile.piece.color == other_color:
@@ -59,7 +59,7 @@ class Pawn(Piece):
         if DEBUG >= 1: print(f'valid moves: {valid_moves}')
         if DEBUG >= 1: print(f'valid takes: {valid_takes}')
         if move in self.valid_moves():
-            prev = self.board.get_tile_from_pos(self.pos[0] * (self.board.board_size // 3), self.pos[1] * (self.board.board_size // 3))
+            prev = self.board.get_tile_from_pos(self.pos[0], self.pos[1])
             self.pos = (tile.x // 200, tile.y // 200)
             prev.piece = None
             tile.piece = self
@@ -67,7 +67,7 @@ class Pawn(Piece):
             return True
 
         if move in valid_takes:
-            prev = self.board.get_tile_from_pos(self.pos[0] * (self.board.board_size // 3), self.pos[1] * (self.board.board_size // 3))
+            prev = self.board.get_tile_from_pos(self.pos[0], self.pos[1])
             self.pos = (tile.x // 200, tile.y // 200)
             prev.piece = None
             tile.piece = self
