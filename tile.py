@@ -20,6 +20,9 @@ class Tile:
             self.tile_size
         )
 
+    def __repr__(self):
+        return f'Tile at position {self.x, self.y}'
+
     def draw(self, display):
         if self.highlight:
             pygame.draw.rect(display, self.highlight_color, self.rect)
