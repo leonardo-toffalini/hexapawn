@@ -7,8 +7,8 @@ class Game:
     
     def count_pieces(self, board):
         reds, blacks = 0, 0
-        for i in range(3):
-            for j in range(3):
+        for i in range(board.num_tiles):
+            for j in range(board.num_tiles):
                 tile = board.get_tile_from_pos(i, j)
 
                 if tile.piece is None:
@@ -23,8 +23,8 @@ class Game:
 
     def no_moves(self, board):
         all_moves = []
-        for i in range(3):
-            for j in range(3):
+        for i in range(board.num_tiles):
+            for j in range(board.num_tiles):
                 tile = board.get_tile_from_pos(i, j)
 
                 if tile.piece is not None and tile.piece.color == board.turn:
@@ -40,9 +40,9 @@ class Game:
     
 
     def check_last_rank(self, board):
-        for i in range(3):
+        for i in range(board.num_tiles):
             first_row_tile = board.get_tile_from_pos(i, 0)
-            last_row_tile = board.get_tile_from_pos(i, 2)
+            last_row_tile = board.get_tile_from_pos(i, board.num_tiles - 1)
 
             if first_row_tile.piece is not None and first_row_tile.piece.color == Color.RED:
                 return Color.RED

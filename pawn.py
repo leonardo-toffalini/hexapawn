@@ -6,12 +6,13 @@ DEBUG = 0
 
 
 class Pawn(Piece):
-    def __init__(self, pos: tuple[int, int], color: Color, board):
+    def __init__(self, pos: tuple[int, int], color: Color, board, tile_size:int = 200):
         super().__init__(pos, color, board)
         img_path = 'images/black-pawn.png' if color == Color.BLACK else 'images/red-pawn.png'
         self.board = board
+        self.tile_size = tile_size
         self.img = pygame.image.load(img_path)
-        self.img = pygame.transform.scale(self.img, (200, 200))
+        self.img = pygame.transform.scale(self.img, (self.tile_size, self.tile_size))
 
     def _possible_moves(self):
         return [(0, 1)] if self.color == Color.BLACK else [(0, -1)]
@@ -54,13 +55,13 @@ class Pawn(Piece):
     def move(self, tile: Tile):
         valid_moves = self.valid_moves()
         valid_takes = self.valid_takes()
-        move = ((tile.x//200) - self.pos[0], (tile.y//200) - self.pos[1])
+        move = (tile.x_index - self.pos[0], tile.y_index - self.pos[1])
 
         if DEBUG >= 1: print(f'valid moves: {valid_moves}')
         if DEBUG >= 1: print(f'valid takes: {valid_takes}')
         if move in self.valid_moves():
             prev = self.board.get_tile_from_pos(self.pos[0], self.pos[1])
-            self.pos = (tile.x // 200, tile.y // 200)
+            self.pos = (tile.x_index, tile.y_index)
             prev.piece = None
             tile.piece = self
             self.board.selected_piece = None
@@ -68,7 +69,7 @@ class Pawn(Piece):
 
         if move in valid_takes:
             prev = self.board.get_tile_from_pos(self.pos[0], self.pos[1])
-            self.pos = (tile.x // 200, tile.y // 200)
+            self.pos = (tile.x_index, tile.y_index)
             prev.piece = None
             tile.piece = self
             self.board.selected_piece = None

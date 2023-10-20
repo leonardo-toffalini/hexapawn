@@ -4,30 +4,24 @@ from pawn import Pawn, DEBUG
 import pygame
 
 class Board:
-    def __init__(self, board:list[int] = None, turn:Color = Color.RED, board_size:int = 600):
-        if board is None:
-            self.board = [
-                [Color.BLACK, Color.BLACK, Color.BLACK],
-                [          0,           0,           0],
-                [  Color.RED,   Color.RED,   Color.RED]
-            ]
-        else:
-            self.board = board
+    def __init__(self, turn:Color = Color.RED, board_size:int = 600, num_tiles=3):
         self.turn = turn
         self.board_size = board_size
+        self.num_tiles = num_tiles
+        self.tile_size = self.board_size // self.num_tiles
         self.tiles_list = self._generate_tiles()
         self.selected_piece = None
 
 
     def _generate_tiles(self):
         tiles_list = []
-        for i in range(3):
-            for j in range(3):
-                new_tile = Tile(i, j, self.board_size//3)
+        for i in range(self.num_tiles):
+            for j in range(self.num_tiles):
+                new_tile = Tile(i, j, self.tile_size)
                 if j == 0:
-                    new_tile.piece = Pawn((i, j), Color.BLACK, self)
-                elif j == 2:
-                    new_tile.piece = Pawn((i, j), Color.RED, self)
+                    new_tile.piece = Pawn((i, j), Color.BLACK, self, self.tile_size)
+                elif j == self.num_tiles - 1:
+                    new_tile.piece = Pawn((i, j), Color.RED, self, self.tile_size)
                 tiles_list.append(new_tile)
         return tiles_list
 
@@ -47,8 +41,8 @@ class Board:
     
     def handle_click(self, pos):
         x, y = pos[0], pos[1]
-        x = x // (self.board_size // 3)
-        y = y // (self.board_size // 3)
+        x = x // self.tile_size
+        y = y // self.tile_size
         clicked_tile = self.get_tile_from_pos(x, y)
         if DEBUG >= 2: print(f'clicked tile pos: {clicked_tile}')
 
@@ -70,29 +64,3 @@ class Board:
         for tile in self.tiles_list:
             tile.highlight = False
         clicked_tile.highlight = True
-
-
-def main():
-    my_board = Board()
-
-    board_size = 600
-
-    pygame.init()
-    screen = pygame.display.set_mode((board_size, board_size))
-    running = True
-    
-    while running:
-        my_board.draw(screen)
-        pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-               print(f'turn: {my_board.turn}')
-               my_board.handle_click(event.pos) 
-
-    pygame.quit()
-
-if __name__ == '__main__':
-    main()
