@@ -1,15 +1,16 @@
 from piece import Color
 
 class Game:
-    def __init__(self):
+    def __init__(self, board):
         self.winner = None
+        self.board = board
 
     
-    def count_pieces(self, board):
+    def count_pieces(self):
         reds, blacks = 0, 0
-        for i in range(board.num_tiles):
-            for j in range(board.num_tiles):
-                tile = board.get_tile_from_pos(i, j)
+        for i in range(self.board.num_tiles):
+            for j in range(self.board.num_tiles):
+                tile = self.board.get_tile_from_pos(i, j)
 
                 if tile.piece is None:
                     continue
@@ -21,28 +22,28 @@ class Game:
         return reds, blacks
     
 
-    def no_moves(self, board):
+    def no_moves(self):
         all_moves = []
-        for i in range(board.num_tiles):
-            for j in range(board.num_tiles):
-                tile = board.get_tile_from_pos(i, j)
+        for i in range(self.board.num_tiles):
+            for j in range(self.board.num_tiles):
+                tile = self.board.get_tile_from_pos(i, j)
 
-                if tile.piece is not None and tile.piece.color == board.turn:
+                if tile.piece is not None and tile.piece.color == self.board.turn:
                     for move in tile.piece.valid_moves():
                         all_moves.append(move)
                     for take in tile.piece.valid_takes():
                         all_moves.append(take)
         if len(all_moves) == 0:
-            return Color.BLACK if board.turn == Color.RED else Color.RED
+            return Color.BLACK if self.board.turn == Color.RED else Color.RED
         else:
             return None
         
     
 
-    def check_last_rank(self, board):
-        for i in range(board.num_tiles):
-            first_row_tile = board.get_tile_from_pos(i, 0)
-            last_row_tile = board.get_tile_from_pos(i, board.num_tiles - 1)
+    def check_last_rank(self):
+        for i in range(self.board.num_tiles):
+            first_row_tile = self.board.get_tile_from_pos(i, 0)
+            last_row_tile = self.board.get_tile_from_pos(i, self.board.num_tiles - 1)
 
             if first_row_tile.piece is not None and first_row_tile.piece.color == Color.RED:
                 return Color.RED
@@ -52,16 +53,16 @@ class Game:
         return None
             
 
-    def check_winner(self, board):
-        reds, blacks = self.count_pieces(board)
-        last_row_winner = self.check_last_rank(board)
+    def check_winner(self):
+        reds, blacks = self.count_pieces()
+        last_row_winner = self.check_last_rank()
         if reds == 0 or blacks == 0:
             self.winner = Color.RED if reds > blacks else Color.BLACK
             return True
-        elif (last_row_winner := self.check_last_rank(board)) is not None:
+        elif (last_row_winner := self.check_last_rank()) is not None:
             self.winner = last_row_winner
             return True
-        elif (no_move_winner := self.no_moves(board)) is not None:
+        elif (no_move_winner := self.no_moves()) is not None:
             self.winner = no_move_winner
             return True
         else:

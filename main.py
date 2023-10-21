@@ -18,14 +18,14 @@ class Hexapawn:
 
     def main(self, board_size):
         board = Board(board_size=board_size)
-        game = Game()
+        game = Game(board)
 
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
 
-                if not game.check_winner(board):
+                if not game.check_winner():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         board.handle_click(event.pos) 
                 else:
