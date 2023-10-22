@@ -1,15 +1,15 @@
 import pygame
 
 class Tile:
-    def __init__(self, x:int, y:int, tile_size:int):
+    def __init__(self, row:int, col:int, tile_size:int):
         self.tile_size = tile_size
-        self.x = x * self.tile_size
-        self.y = y * self.tile_size
+        self.x_abs = col * self.tile_size # absolute x position
+        self.y_abs = row * self.tile_size # absolute y position
 
-        self.x_index = x
-        self.y_index = y
+        self.x_index = col # column index
+        self.y_index = row # row index
 
-        self.color = 'dark' if (x + y) % 2 else 'light'
+        self.color = 'dark' if (row + col) % 2 else 'light'
         self.draw_color = (220, 189, 194) if self.color == 'light' else (92, 75, 75)
         self.highlight_color = (100, 249, 83) if self.color == 'light' else (0, 200, 10)
         self.highlight = False
@@ -17,14 +17,14 @@ class Tile:
         self.piece = None
 
         self.rect = pygame.Rect(
-            self.x,
-            self.y,
+            self.x_abs,
+            self.y_abs,
             self.tile_size,
             self.tile_size
         )
 
     def __repr__(self):
-        return f'Tile at position {self.x, self.y}'
+        return f'Tile at position {self.x_abs, self.y_abs}'
 
     def draw(self, display):
         if self.highlight:
