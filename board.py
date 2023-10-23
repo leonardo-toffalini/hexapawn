@@ -3,7 +3,7 @@ from tile import Tile
 from pawn import Pawn, DEBUG
 
 class Board:
-    def __init__(self, turn:Color = Color.RED, board_size:int = 600, num_tiles=3, board: Color|None = None):
+    def __init__(self, turn: Color = Color.RED, board_size: int = 600, num_tiles: int = 3, board: list|None = None):
         self.turn = turn
         self.board_size = board_size
         self.num_tiles = num_tiles
@@ -20,7 +20,7 @@ class Board:
 
         self.tiles_list = self._generate_tiles()
 
-    def _generate_tiles(self):
+    def _generate_tiles(self) -> list[Tile]:
         """ Creates a list of tiles for the board with the piece on the tiles according to self.board initialization """
         tiles_list = []
         for i in range(self.num_tiles):
@@ -34,7 +34,7 @@ class Board:
         return tiles_list
 
 
-    def draw(self, display):
+    def draw(self, display) -> None:
         """ Draws the board with the tiles and the piece one the tiles """
         for tile in self.tiles_list:
             tile.draw(display)
@@ -42,7 +42,7 @@ class Board:
         if DEBUG >= 1 and self.selected_piece is not None: print(f'position of selected piece: {self.selected_piece.pos}')
 
 
-    def get_tile_from_pos(self, x:int, y:int):
+    def get_tile_from_pos(self, x: int, y: int) -> Tile|None:
         """ Expects parameters: x/col, y/row 
             Returns the tile at position (row, col)"""
         for tile in self.tiles_list:
@@ -50,7 +50,7 @@ class Board:
                 return tile
 
     
-    def handle_click(self, x, y):
+    def handle_click(self, x: int, y: int) -> None:
         """ Highlights clicked tile, selects the piece on clicked tile if applicable, moves piece if applicable """
         x = x // self.tile_size
         y = y // self.tile_size

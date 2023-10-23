@@ -11,7 +11,7 @@ class Game:
         reds, blacks = 0, 0
         for i in range(self.board.num_tiles):
             for j in range(self.board.num_tiles):
-                tile = self.board.get_tile_from_pos(i, j)
+                tile = self.board.get_tile_from_pos(j, i)
 
                 if tile.piece is None:
                     continue
@@ -28,7 +28,7 @@ class Game:
         all_moves = []
         for i in range(self.board.num_tiles):
             for j in range(self.board.num_tiles):
-                tile = self.board.get_tile_from_pos(i, j)
+                tile = self.board.get_tile_from_pos(j, i)
 
                 if tile.piece is not None and tile.piece.color == self.board.turn:
                     for move in tile.piece.valid_moves():

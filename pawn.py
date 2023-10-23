@@ -32,7 +32,7 @@ class Pawn(Piece):
         poss_moves = self._possible_moves()
         for move in poss_moves:
             tile_pos = (self.pos[0] + move[0], self.pos[1] + move[1]) # (row, col)
-            if tile_pos[0] > 2 or tile_pos[0] < 0 or tile_pos[1] > 2 or tile_pos[1] < 0:
+            if tile_pos[0] > self.board.num_tiles or tile_pos[0] < 0 or tile_pos[1] > self.board.num_tiles or tile_pos[1] < 0:
                 continue
             
             tile = self.board.get_tile_from_pos(tile_pos[1], tile_pos[0]) # function takes (x, y) parameters so (col, row)

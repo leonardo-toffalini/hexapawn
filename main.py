@@ -17,9 +17,9 @@ class Hexapawn:
         pygame.display.update()
 
 
-    def main(self, board_size: int) -> None:
+    def main(self, board_size: int, num_tiles: int = 3) -> None:
         """ Main game loop """
-        board = Board(board_size=board_size, board = None)
+        board = Board(board_size=board_size, board = None, num_tiles=num_tiles)
         game = Game(board)
 
         while self.running:
@@ -39,12 +39,13 @@ class Hexapawn:
 
 def main():
     board_size = 600
+    num_tiles = 3
 
     screen = pygame.display.set_mode((board_size, board_size))
     pygame.display.set_caption('Hexapawn')
 
     hexapawn = Hexapawn(screen)
-    hexapawn.main(board_size)
+    hexapawn.main(board_size, num_tiles)
     
 
     pygame.quit()
