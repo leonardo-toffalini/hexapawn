@@ -9,5 +9,5 @@ Rules of **Hexapawn**:
 
 A player wins if either:
 1. The opponent has no pieces left.
-2. THe opponent has no moves left and it's their turn to move.
+2. The opponent has no moves left and it's their turn to move.
 3. One of their pawns has reached the last rank.
