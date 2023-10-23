@@ -58,7 +58,8 @@ class Pawn(Piece):
         valid_moves = self.valid_moves()
         valid_takes = self.valid_takes()
         move = (tile.y_index - self.pos[0], tile.x_index - self.pos[1]) # (row, col)
-        print(move[0], move[1])
+        print(f'pos: {self.pos[0], self.pos[1]}')
+        print(f'move: {move[0], move[1]}')
 
         #if DEBUG >= 1: 
         print(f'valid moves: {valid_moves}')
@@ -66,7 +67,7 @@ class Pawn(Piece):
         print(f'valid takes: {valid_takes}')
         if move in self.valid_moves():
             prev = self.board.get_tile_from_pos(self.pos[1], self.pos[0])
-            self.pos = (tile.x_index, tile.y_index)
+            self.pos = (tile.y_index, tile.x_index)
             prev.piece = None
             tile.piece = self
             self.board.selected_piece = None
@@ -74,7 +75,7 @@ class Pawn(Piece):
 
         if move in valid_takes:
             prev = self.board.get_tile_from_pos(self.pos[1], self.pos[0])
-            self.pos = (tile.x_index, tile.y_index)
+            self.pos = (tile.y_index, tile.x_index)
             prev.piece = None
             tile.piece = self
             self.board.selected_piece = None
