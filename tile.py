@@ -27,6 +27,7 @@ class Tile:
         return f'Tile at position {self.x_abs, self.y_abs}'
 
     def draw(self, display):
+        """ Draws a rectangle for each tile and renders the image of a piece on top of the tile if applicable """
         if self.highlight:
             pygame.draw.rect(display, self.highlight_color, self.rect)
         else:

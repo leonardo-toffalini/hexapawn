@@ -11,12 +11,14 @@ class Hexapawn:
         self.FPS = pygame.time.Clock()
 
 
-    def _draw(self, board):
+    def _draw(self, board: Board) -> None:
+        """ Draws the board """
         board.draw(self.screen)
         pygame.display.update()
 
 
-    def main(self, board_size):
+    def main(self, board_size: int) -> None:
+        """ Main game loop """
         board = Board(board_size=board_size, board = None)
         game = Game(board)
 

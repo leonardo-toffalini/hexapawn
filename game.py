@@ -6,7 +6,8 @@ class Game:
         self.board = board
 
     
-    def count_pieces(self):
+    def count_pieces(self) -> int:
+        """ Returns the number of black and red pieces on the board """
         reds, blacks = 0, 0
         for i in range(self.board.num_tiles):
             for j in range(self.board.num_tiles):
@@ -22,7 +23,8 @@ class Game:
         return reds, blacks
     
 
-    def no_moves(self):
+    def no_moves(self) -> Color|None:
+        """ Returns the RED if BLACK has no legal moves or BLACK if RED has no legal moves, None otherwise """
         all_moves = []
         for i in range(self.board.num_tiles):
             for j in range(self.board.num_tiles):
@@ -40,7 +42,8 @@ class Game:
         
     
 
-    def check_last_rank(self):
+    def check_last_rank(self) -> Color|None:
+        """ Returns BLACK if a BLACK piece has reached the last rank, returns RED if a RED piece has reached the last rank, returns None otherwise """
         for i in range(self.board.num_tiles):
             first_row_tile = self.board.get_tile_from_pos(i, 0)
             last_row_tile = self.board.get_tile_from_pos(i, self.board.num_tiles - 1)
@@ -53,7 +56,8 @@ class Game:
         return None
             
 
-    def check_winner(self):
+    def check_winner(self) -> bool:
+        """ Returns True if any player has won, returns False otherwise """
         reds, blacks = self.count_pieces()
         last_row_winner = self.check_last_rank()
         if reds == 0 or blacks == 0:
@@ -70,6 +74,7 @@ class Game:
         
 
     def message(self):
+        """ Prints out the winner """
         winner = 'Black' if self.winner == Color.BLACK else 'Red'
         print(f'Winner: {winner}')
 

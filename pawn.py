@@ -16,15 +16,18 @@ class Pawn(Piece):
         self.img = pygame.image.load(img_path)
         self.img = pygame.transform.scale(self.img, (self.tile_size, self.tile_size))
 
-    def _possible_moves(self):
+    def _possible_moves(self) -> list[tuple[int]]:
+        """ Returns a list of possible moves for the pawn, does not check if move is legal for the current positions """
         return [(1, 0)] if self.color == Color.BLACK else [(-1, 0)] # returns a list of possible moves with indexing (x, y)
     
 
-    def _possible_takes(self):
+    def _possible_takes(self) -> list[tuple[int]]:
+        """ Returns a list of possible takes for the pawn, does not check if take is legal for the current positions """
         return [(1, -1), (1, 1)] if self.color == Color.BLACK else [(-1, -1), (-1, 1)] # returns a list of possible takes with indexing (x, y)
 
 
-    def valid_moves(self):
+    def valid_moves(self) -> list[tuple[int]]:
+        """ Returns a list of legal moves for the pawn for the current position """
         moves = []
         poss_moves = self._possible_moves()
         for move in poss_moves:
@@ -38,7 +41,8 @@ class Pawn(Piece):
         return moves
 
     
-    def valid_takes(self):
+    def valid_takes(self) -> list[tuple[int]]:
+        """ Returns a list of legal takes for the pawn for the current position """
         takes = []
         poss_takes = self._possible_takes()
         for take in poss_takes:
@@ -54,7 +58,8 @@ class Pawn(Piece):
         return takes
 
 
-    def move(self, tile: Tile):
+    def move(self, tile: Tile) -> bool:
+        """ Moves the pawn to the specified tile if applicable, returns True if move was applicable, returns False otherwise """
         valid_moves = self.valid_moves()
         valid_takes = self.valid_takes()
         move = (tile.y_index - self.pos[0], tile.x_index - self.pos[1]) # (row, col)

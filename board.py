@@ -21,6 +21,7 @@ class Board:
         self.tiles_list = self._generate_tiles()
 
     def _generate_tiles(self):
+        """ Creates a list of tiles for the board with the piece on the tiles according to self.board initialization """
         tiles_list = []
         for i in range(self.num_tiles):
             for j in range(self.num_tiles):
@@ -34,6 +35,7 @@ class Board:
 
 
     def draw(self, display):
+        """ Draws the board with the tiles and the piece one the tiles """
         for tile in self.tiles_list:
             tile.draw(display)
         
@@ -41,12 +43,15 @@ class Board:
 
 
     def get_tile_from_pos(self, x:int, y:int):
+        """ Expects parameters: x/col, y/row 
+            Returns the tile at position (row, col)"""
         for tile in self.tiles_list:
             if (tile.x_index, tile.y_index) == (x, y):
                 return tile
 
     
     def handle_click(self, x, y):
+        """ Highlights clicked tile, selects the piece on clicked tile if applicable, moves piece if applicable """
         x = x // self.tile_size
         y = y // self.tile_size
         clicked_tile = self.get_tile_from_pos(x, y)
