@@ -1,6 +1,6 @@
-from piece import Piece, Color
+from piece import Color, DEBUG
 from tile import Tile
-from pawn import Pawn, DEBUG
+from pawn import Pawn
 
 class Board:
     def __init__(self, turn: Color = Color.RED, board_size: int = 600, num_tiles: int = 3, board: list|None = None):

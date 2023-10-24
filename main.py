@@ -46,7 +46,6 @@ def main():
 
     hexapawn = Hexapawn(screen)
     hexapawn.main(board_size, num_tiles)
-    
 
     pygame.quit()
 
