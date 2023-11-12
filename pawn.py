@@ -1,6 +1,5 @@
 import pygame
-from piece import Piece, Color
-from piece import DEBUG
+from piece import Piece, Color, DEBUG
 
 
 class Pawn(Piece):
