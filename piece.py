@@ -25,17 +25,21 @@ class Piece:
         if DEBUG == 5: print(f'valid takes: {valid_takes}')
         if move in self.valid_moves():
             prev = self.board.get_tile_from_pos(self.pos[1], self.pos[0])
+            self.board.board[self.pos[0]][self.pos[1]] = 0
             self.pos = (tile.y_index, tile.x_index)
             prev.piece = None
             tile.piece = self
+            self.board.board[tile.y_index][tile.x_index] = self.color
             self.board.selected_piece = None
             return True
 
         if move in valid_takes:
             prev = self.board.get_tile_from_pos(self.pos[1], self.pos[0])
+            self.board.board[self.pos[0]][self.pos[1]] = 0
             self.pos = (tile.y_index, tile.x_index)
             prev.piece = None
             tile.piece = self
+            self.board.board[tile.y_index][tile.x_index] = self.color
             self.board.selected_piece = None
             return True
 

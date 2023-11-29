@@ -27,9 +27,16 @@ class Hexapawn:
                 if event.type == pygame.QUIT:
                     self.running = False
 
+                if event.type == pygame.KEYDOWN:
+                    clone_board = Board(board_size=board_size, board = board.board, num_tiles=num_tiles)
+                    clone_game = Game(clone_board)
+                    print(clone_board.board)
+                    print(clone_game.minimax())
+
                 if not game.check_winner():
                     if event.type == pygame.MOUSEBUTTONDOWN:
-                        board.handle_click(event.pos[0], event.pos[1]) 
+                        pos = pygame.mouse.get_pos()
+                        board.handle_click(*pos) 
                 else:
                     game.message()
                     self.running = False
