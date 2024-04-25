@@ -1,4 +1,5 @@
 from game import Game
+from piece import Color
 
 
 class Engine:
@@ -28,3 +29,15 @@ class Engine:
                     for takes in tile.piece.valid_takes():
                         all_moves[(i, j)] = takes
         return all_moves
+
+    def minimax(self, depth: int = 9):
+        pass
+
+    def alphabeta(
+        self,
+        depth: int = 9,
+        player: Color = Color.RED,
+        alpha: float = -float("inf"),
+        beta: float = float("inf"),
+    ):
+        pass
