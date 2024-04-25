@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Tuple
+from typing import List, Tuple
 import pygame
 from tile import Tile
 
@@ -9,6 +9,7 @@ DEBUG = 0
 class Color(Enum):
     BLACK = -1
     RED = 1
+    EMPTY = 0
 
 
 class Piece:
@@ -46,8 +47,8 @@ class Piece:
             self.board.selected_piece = None
             return False
 
-    def valid_moves(self) -> Tuple[int, int]:
-        return (0, 0)
+    def valid_moves(self) -> List[Tuple[int, int]]:
+        return [(0, 0)]
 
-    def valid_takes(self) -> Tuple[int, int]:
-        return (0, 0)
+    def valid_takes(self) -> List[Tuple[int, int]]:
+        return [(0, 0)]

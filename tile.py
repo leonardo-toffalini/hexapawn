@@ -1,10 +1,9 @@
 import pygame
-
 import piece
 
 
 class Tile:
-    def __init__(self, row: int, col: int, tile_size: int):
+    def __init__(self, row: int, col: int, tile_size: int) -> None:
         self.tile_size = tile_size
         self.x_abs = col * self.tile_size  # absolute x position
         self.y_abs = row * self.tile_size  # absolute y position
@@ -21,10 +20,10 @@ class Tile:
 
         self.rect = pygame.Rect(self.x_abs, self.y_abs, self.tile_size, self.tile_size)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Tile at position {self.x_abs, self.y_abs}"
 
-    def draw(self, display):
+    def draw(self, display: pygame.surface.Surface) -> None:
         """Draws a rectangle for each tile and renders the image of a piece on top of the tile if applicable"""
         if self.highlight:
             pygame.draw.rect(display, self.highlight_color, self.rect)
